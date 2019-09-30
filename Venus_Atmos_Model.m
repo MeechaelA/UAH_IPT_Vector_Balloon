@@ -378,7 +378,7 @@ Mass_Total = @(rho) Vol_Balloon(Radi)*rho;
 figure(7)
 plot(Vol_Balloon(Radi), Mass_Total(rho_50_km),Vol_Balloon(Radi), Mass_Total(rho_60_km),Vol_Balloon(Radi), Mass_Total(rho_70_km),Vol_Balloon(Radi), Mass_Total(rho_80_km), Vol_Balloon(Radi), Mass_Total(rho_53_km), Vol_Balloon(3.4/2),21.5,'r*',Vol_Balloon(7.1/2),162.5,'r*')
 title('Stable Altitudes - Mass and Volume')
-legend('50 [km]','53 [km]','60 [km]','70 [km]','80 [km]','Vega 1','Venus Flagship (VDRM)','location','best')
+legend('50 [km]','60 [km]','70 [km]','80 [km]','53 [km]','Vega 1','Venus Flagship (VDRM)','location','best')
 xlabel('Volume of Balloon [m^3]')
 ylabel('Mass of Balloon [kg]')
 ylim([0 250])
