@@ -124,7 +124,7 @@ Viscosity_Function = @(x) Viscosity_Function_Eq(1).*x.^6+Viscosity_Function_Eq(2
 figure(1)
 %sgtitle('\phi < 35^{\circ}')
 subplot(2,4,1)
-plot(Table2.P_Bar,Table2.Var1) 
+plot(Table2.P_Bar,Table2.Var1,'b*') 
 
 title('L_s = 20^{\circ}-90^{\circ}')
 xlabel('Pressure [bar]')
@@ -392,4 +392,5 @@ ylabel('Height [km]')
 % 
 % %Density at 53 km altitude
 
+dF = (p_a-p_g)*g*V
 
