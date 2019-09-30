@@ -363,10 +363,6 @@ ylabel('Height [km]')
 %% Analysis
 % Conduct Level Flight at 53 km
 
-rho_10_km = fsolve(@(x) (10-Density_Function(x)),1); %kg/m^3
-rho_20_km = fsolve(@(x) (20-Density_Function(x)),1); %kg/m^3
-rho_30_km = fsolve(@(x) (30-Density_Function(x)),1); %kg/m^3
-rho_40_km = fsolve(@(x) (40-Density_Function(x)),1); %kg/m^3
 rho_50_km = fsolve(@(x) (50-Density_Function(x)),1); %kg/m^3
 rho_60_km = fsolve(@(x) (60-Density_Function(x)),1); %kg/m^3
 rho_70_km = fsolve(@(x) (70-Density_Function(x)),1); %kg/m^3
@@ -374,12 +370,16 @@ rho_80_km = fsolve(@(x) (80-Density_Function(x)),1); %kg/m^3
 rho_53_km = fsolve(@(x) (53-Density_Function(x)),1); %kg/m^3
 
 
-Diameters = 0:0.01:5; %m
+Diameters = 0:0.01:10; %m
 Radi = Diameters/2; %m
 Vol_Balloon = @(r) (4/3)*pi.*r.^3;   %m^3
 Mass_Total = @(rho) Vol_Balloon(Radi)*rho;
 
 figure(7)
-title('Mass, as a function of Density and Volume')
-plot(Vol_Balloon(Radi), Mass_Total(rho_10_km), Vol_Balloon(Radi), Mass_Total(rho_20_km) ,Vol_Balloon(Radi), Mass_Total(rho_30_km),Vol_Balloon(Radi), Mass_Total(rho_40_km),Vol_Balloon(Radi), Mass_Total(rho_50_km),Vol_Balloon(Radi), Mass_Total(rho_60_km),Vol_Balloon(Radi), Mass_Total(rho_70_km),Vol_Balloon(Radi), Mass_Total(rho_80_km), Vol_Balloon(Radi), Mass_Total(rho_53_km), Vol_Balloon(3.4/2),21.5,'r*')
-legend('10 [km]','20 [km]','30 [km]','40 [km]','50 [km]','60 [km]','70 [km]','80 [km]','53 [km]','Vega 1','location','best')
+plot(Vol_Balloon(Radi), Mass_Total(rho_50_km),Vol_Balloon(Radi), Mass_Total(rho_60_km),Vol_Balloon(Radi), Mass_Total(rho_70_km),Vol_Balloon(Radi), Mass_Total(rho_80_km), Vol_Balloon(Radi), Mass_Total(rho_53_km), Vol_Balloon(3.4/2),21.5,'r*',Vol_Balloon(7.1/2),162.5,'r*')
+title('Stable Altitudes - Mass and Volume')
+legend('50 [km]','53 [km]','60 [km]','70 [km]','80 [km]','Vega 1','Venus Flagship (VDRM)','location','best')
+xlabel('Volume of Balloon [m^3]')
+ylabel('Mass of Balloon [kg]')
+ylim([0 250])
+xlim([0 250])
