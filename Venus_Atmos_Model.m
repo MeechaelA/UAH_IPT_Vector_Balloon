@@ -9,9 +9,10 @@ Table5 = readtable('Venus_Atmos.xlsx', 'Sheet', 'Phi_BW_70_80', 'Range','A3:I53'
 Table6 = readtable('Venus_Atmos.xlsx', 'Sheet', 'Phi_85', 'Range','A3:I53');
 Table7 = readtable('Venus_Atmos.xlsx', 'Sheet', 'Density', 'Range','A2:E27');
 
+
 %% Table Two Functions - Returns Heqight
-P_Bar_Function_E_Two = polyfit(Table2.P_Bar,Table2.Var1,5);
-P_Bar_Function_Two = @(x) P_Bar_Function_Eq_Two(1)*x^5+P_Bar_Function_Eq_Two(2)*x^4+P_Bar_Function_Eq_Two(3)*x^3+P_Bar_Function_Eq_Two(4)*x^2+P_Bar_Function_Eq_Two(5)*x+P_Bar_Function_Eq_Two(6);
+P_Bar_Function_Eq_Two = polyfit(Table2.P_Bar,Table2.Var1,5);
+P_Bar_Function_Two = @(x) P_Bar_Function_Eq_Two(1).*x.^5+P_Bar_Function_Eq_Two(2).*x.^4+P_Bar_Function_Eq_Two(3).*x.^3+P_Bar_Function_Eq_Two(4).*x.^2+P_Bar_Function_Eq_Two(5).*x+P_Bar_Function_Eq_Two(6);
 
 P_Bar_1_Function_Eq_Two = polyfit(Table2.P_Bar_1,Table2.Var1,5);
 P_Bar_1_Function_Two = @(x) P_Bar_1_Function_Eq_Two(1)*x^5+P_Bar_1_Function_Eq_Two(2)*x^4+P_Bar_1_Function_Eq_Two(3)*x^3+P_Bar_1_Function_Eq_Two(4)*x^2+P_Bar_1_Function_Eq_Two(5)*x+P_Bar_1_Function_Eq_Two(6);
@@ -26,7 +27,7 @@ T_K_1_Function_Eq_Two = polyfit(Table2.T_K_1,Table2.Var1,5);
 T_K_1_Function_Two = @(x) T_K_1_Function_Eq_Two(1)*x^5+T_K_1_Function_Eq_Two(2)*x^4+T_K_1_Function_Eq_Two(3)*x^3+T_K_1_Function_Eq_Two(4)*x^2+T_K_1_Function_Eq_Two(5)*x+T_K_1_Function_Eq_Two(6);
 
 T_K_2_Function_Eq_Two = polyfit(Table2.T_K_2,Table2.Var1,5);
-T_K_2_Function_Two = @(x) T_K_2_Function_Eq_Two(1)*x^5+T_K_2_Function_Eq_Two(2)*x^4+T_K_2_Function_Eq(3)*x^3+T_K_2_Function_Eq(4)*x^2+T_K_2_Function_Eq(5)*x+T_K_2_Function_Eq(6);
+T_K_2_Function_Two = @(x) T_K_2_Function_Eq_Two(1)*x^5+T_K_2_Function_Eq_Two(2)*x^4+T_K_2_Function_Eq_Two(3)*x^3+T_K_2_Function_Eq_Two(4)*x^2+T_K_2_Function_Eq_Two(5)*x+T_K_2_Function_Eq_Two(6);
 
 %% Table Three Functions - Returns Height
 P_Bar_Function_Eq_Three = polyfit(Table3.P_Bar,Table3.Var1,5);
@@ -49,7 +50,7 @@ T_K_2_Function_Three = @(x) T_K_2_Function_Eq_Three(1)*x^5+T_K_2_Function_Eq_Thr
 
 %% Table Four Functions - Returns Height
 P_Bar_Function_Eq_Four = polyfit(Table4.P_Bar,Table4.Var1,5);
-P_Bar_Function_Four = @(x) P_Bar_Function_Eq_Four(1)*x^5+P_Bar_Function_Eq_Four(2)*x^4+P_Bar_Function_Eq_Four(3)*x^3+P_Bar_Function_Eq_Four(4)*x^2+P_Bar_Function_Eq_Four(5)*x+P_Bar_Function_Eq_Four(6);
+P_Bar_Function_Four = @(x) P_Bar_Function_Eq_Four(1).*x.^5+P_Bar_Function_Eq_Four(2).*x.^4+P_Bar_Function_Eq_Four(3).*x.^3+P_Bar_Function_Eq_Four(4).*x.^2+P_Bar_Function_Eq_Four(5).*x+P_Bar_Function_Eq_Four(6);
  
 P_Bar_1_Function_Eq_Four = polyfit(Table4.P_Bar_1,Table4.Var1,5);
 P_Bar_1_Function_Four = @(x) P_Bar_1_Function_Eq_Four(1)*x^5+P_Bar_1_Function_Eq_Four(2)*x^4+P_Bar_1_Function_Eq_Four(3)*x^3+P_Bar_1_Function_Eq_Four(4)*x^2+P_Bar_1_Function_Eq_Four(5)*x+P_Bar_1_Function_Eq_Four(6);
@@ -83,7 +84,7 @@ T_K_1_Function_Eq_Five = polyfit(Table5.T_K_1,Table5.Var1,5);
 T_K_1_Function_Five = @(x) T_K_1_Function_Eq_Five(1)*x^5+T_K_1_Function_Eq_Five(2)*x^4+T_K_1_Function_Eq_Five(3)*x^3+T_K_1_Function_Eq_Five(4)*x^2+T_K_1_Function_Eq_Five(5)*x+T_K_1_Function_Eq_Five(6);
  
 T_K_2_Function_Eq_Five = polyfit(Table5.T_K_2,Table5.Var1,5);
-T_K_2_Function_Five = @(x) T_K_2_Function_Eq_Five(1)*x^5+T_K_2_Function_Eq_Five(2)*x^4+T_K_2_Function_Eq(3)*x^3+T_K_2_Function_Eq(4)*x^2+T_K_2_Function_Eq(5)*x+T_K_2_Function_Eq(6);
+T_K_2_Function_Five = @(x) T_K_2_Function_Eq_Five(1)*x^5+T_K_2_Function_Eq_Five(2)*x^4+T_K_2_Function_Eq_Five(3)*x^3+T_K_2_Function_Eq_Five(4)*x^2+T_K_2_Function_Eq_Five(5)*x+T_K_2_Function_Eq_Five(6);
  
 %% Table 6 Functions - Returns Height
 P_Bar_Function_Eq_Six = polyfit(Table6.P_Bar,Table6.Var1,5);
@@ -102,7 +103,7 @@ T_K_1_Function_Eq_Six = polyfit(Table6.T_K_1,Table6.Var1,5);
 T_K_1_Function_Six = @(x) T_K_1_Function_Eq_Six(1)*x^5+T_K_1_Function_Eq_Six(2)*x^4+T_K_1_Function_Eq_Six(3)*x^3+T_K_1_Function_Eq_Six(4)*x^2+T_K_1_Function_Eq_Six(5)*x+T_K_1_Function_Eq_Six(6);
  
 T_K_2_Function_Eq_Six = polyfit(Table6.T_K_2,Table6.Var1,5);
-T_K_2_Function_Six = @(x) T_K_2_Function_Eq_Six(1)*x^5+T_K_2_Function_Eq_Six(2)*x^4+T_K_2_Function_Eq(3)*x^3+T_K_2_Function_Eq(4)*x^2+T_K_2_Function_Eq(5)*x+T_K_2_Function_Eq(6);
+T_K_2_Function_Six = @(x) T_K_2_Function_Eq_Six(1)*x^5+T_K_2_Function_Eq_Six(2)*x^4+T_K_2_Function_Eq_Six(3)*x^3+T_K_2_Function_Eq_Six(4)*x^2+T_K_2_Function_Eq_Six(5)*x+T_K_2_Function_Eq_Six(6);
 
 %% Table 7 - Functions - Returns Height
 
@@ -124,7 +125,7 @@ Viscosity_Function = @(x) Viscosity_Function_Eq(1).*x.^6+Viscosity_Function_Eq(2
 figure(1)
 %sgtitle('\phi < 35^{\circ}')
 subplot(2,4,1)
-plot(Table2.P_Bar,Table2.Var1,'b*') 
+plot(Table2.P_Bar,Table2.Var1,'b*',Table2.P_Bar,P_Bar_Function_Two(Table2.P_Bar)) 
 
 title('L_s = 20^{\circ}-90^{\circ}')
 xlabel('Pressure [bar]')
@@ -383,3 +384,42 @@ xlabel('Volume of Balloon [m^3]')
 ylabel('Mass of Balloon [kg]')
 ylim([0 250])
 xlim([0 250])
+
+%% Temperature and Pressure
+
+Pressure_B_35 = [fsolve(@(x) 53-P_Bar_Function_Two(x),0.7), fsolve(@(x) 53-P_Bar_1_Function_Two(x),0.7),fsolve(@(x) 53-P_Bar_1_Function_Two(x),0.7)];
+Pressure_BW_35_55 = [fsolve(@(x) 53-P_Bar_Function_Three(x),0.7), fsolve(@(x) 53-P_Bar_Function_Three(x),0.7),fsolve(@(x) 53-P_Bar_Function_Three(x),0.7)];
+Pressure_BW_50_70 = [fsolve(@(x) 53-P_Bar_Function_Four(x),0.7), fsolve(@(x) 53-P_Bar_Function_Four(x),0.7),fsolve(@(x) 53-P_Bar_Function_Four(x),0.7)];
+Pressure_BW_70_80 = [fsolve(@(x) 53-P_Bar_Function_Five(x),0.7), fsolve(@(x) 53-P_Bar_Function_Five(x),0.7),fsolve(@(x) 53-P_Bar_Function_Five(x),0.7)];
+Pressure_B_85 = [fsolve(@(x) 53-P_Bar_Function_Six(x),0.7), fsolve(@(x) 53-P_Bar_Function_Six(x),0.7),fsolve(@(x) 53-P_Bar_Function_Six(x),0.7)];
+
+Temp_B_35 = [fsolve(@(x) 53-T_K_Function_Two(x),350), fsolve(@(x) 53-T_K_1_Function_Two(x),350),fsolve(@(x) 53-T_K_2_Function_Two(x),350)];
+Temp_BW_35_55 = [fsolve(@(x) 53-T_K_Function_Three(x),350), fsolve(@(x) 53-T_K_1_Function_Three(x),350),fsolve(@(x) 53-T_K_2_Function_Three(x),350)];
+Temp_BW_50_70 = [fsolve(@(x) 53-T_K_Function_Four(x),350), fsolve(@(x) 53-T_K_1_Function_Four(x),350),fsolve(@(x) 53-T_K_2_Function_Four(x),350)];
+Temp_BW_70_80 = [fsolve(@(x) 53-T_K_Function_Five(x),350), fsolve(@(x) 53-T_K_1_Function_Five(x),350),fsolve(@(x) 53-T_K_2_Function_Five(x),350)];
+Temp_B_85 = [fsolve(@(x) 53-T_K_Function_Six(x),350), fsolve(@(x) 53-T_K_1_Function_Six(x),350),fsolve(@(x) 53-T_K_2_Function_Six(x),350)];
+
+Pres_Solar_Long_20_90 = [Pressure_B_35(1),Pressure_BW_35_55(1),Pressure_BW_50_70(1),Pressure_BW_70_80(1),Pressure_B_85(1)];
+Pres_Solar_Long_90_130 = [Pressure_B_35(2),Pressure_BW_35_55(2),Pressure_BW_50_70(2),Pressure_BW_70_80(2),Pressure_B_85(2)];
+Pres_Solar_Long_200_270 = [Pressure_B_35(3),Pressure_BW_35_55(3),Pressure_BW_50_70(3),Pressure_BW_70_80(3),Pressure_B_85(3)];
+%Solar_Long_270_310 = [Pressure_B_35(3),Pressure_BW_35_55(3),Pressure_BW_50_70(3),Pressure_BW_70_80(3),Pressure_B_85(3)];
+
+Temp_Solar_Long_20_90 = [Temp_B_35(1),Temp_BW_35_55(1),Temp_BW_50_70(1),Temp_BW_70_80(1),Temp_B_85(1)];
+Temp_Solar_Long_90_130 = [Temp_B_35(2),Temp_BW_35_55(2),Temp_BW_50_70(2),Temp_BW_70_80(2),Temp_B_85(2)];
+Temp_Solar_Long_200_270 = [Temp_B_35(3),Temp_BW_35_55(3),Temp_BW_50_70(3),Temp_BW_70_80(3),Temp_B_85(3)];
+%Temp_Solar_Long_270_310 = [Temp_B_35(3),Temp_BW_35_55(3),Temp_BW_50_70(3),Temp_BW_70_80(3),Temp_B_85(3)];
+
+%% Sphere Plot
+% N = 10;
+% thetavec = linspace(0,pi,N);
+% phivec = linspace(0,2*pi,2*N);
+% [th, ph] = meshgrid(thetavec,phivec);
+% R = ones(size(th)); % should be your R(theta,phi) surface in general
+% 
+% x = R.*sin(th).*cos(ph);
+% y = R.*sin(th).*sin(ph);
+% z = R.*cos(th);
+% c_data = ones(size(th)).*[Temp_Solar_Long_20_90(1), Temp_Solar_Long_90_130(1), Temp_Solar_Long_200_270(1)];
+% 
+% surf(x,y,z,c_data);
+% axis vis3d
