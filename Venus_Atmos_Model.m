@@ -457,7 +457,7 @@ xlim([0 1250])
 
 %% Temperature and Pressure
 
-% Pressure_B_35 = [fsolve(@(x) 53-P_Bar_Function_Two(x),0.7), fsolve(@(x) 53-P_Bar_1_Function_Two(x),0.7),fsolve(@(x) 53-P_Bar_1_Function_Two(x),0.7)];
+% Pressure_B_35 = [fsolve(@(x) 53-P_Bar_FunctT_K_3_Function_Sixion_Two(x),0.7), fsolve(@(x) 53-P_Bar_1_Function_Two(x),0.7),fsolve(@(x) 53-P_Bar_1_Function_Two(x),0.7)];
 % Pressure_BW_35_55 = [fsolve(@(x) 53-P_Bar_Function_Three(x),0.7), fsolve(@(x) 53-P_Bar_Function_Three(x),0.7),fsolve(@(x) 53-P_Bar_Function_Three(x),0.7)];
 % Pressure_BW_50_70 = [fsolve(@(x) 53-P_Bar_Function_Four(x),0.7), fsolve(@(x) 53-P_Bar_Function_Four(x),0.7),fsolve(@(x) 53-P_Bar_Function_Four(x),0.7)];
 % Pressure_BW_70_80 = [fsolve(@(x) 53-P_Bar_Function_Five(x),0.7), fsolve(@(x) 53-P_Bar_Function_Five(x),0.7),fsolve(@(x) 53-P_Bar_Function_Five(x),0.7)];
@@ -508,4 +508,5 @@ xlim([0 1250])
 % H = 150;          %km
 % 
 % FSL = 20*log(d_km)+20*log(freq)+92.45;
-%%
+%% 
+ 
