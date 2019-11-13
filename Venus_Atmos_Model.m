@@ -1,6 +1,6 @@
 %% Figures
 clear,clc
-
+alt_target = 53;
 %Givens using "Structure of the Venusian Atmosphere" Paper
 Table2 = readtable('Venus_Atmos.xlsx', 'Sheet', 'Phi_Less_Than_35', 'Range','M3:U54');
 Table3 = readtable('Venus_Atmos.xlsx', 'Sheet', 'Phi_BW_35_55', 'Range','M3:U54');
@@ -171,7 +171,6 @@ Number_Density_Function = @(x) feval(Number_Density_Function_Eq,x);
 Viscosity_Function_Eq = fit(Table7.Viscosity,Table7.Altitude,'cubicinterp');
 Viscosity_Function = @(x) feval(Viscosity_Function_Eq,x);
 
-
 %% Figures
 figure(1)
 sgtitle('\phi < 35^{\circ}')
@@ -334,7 +333,6 @@ title('L_s = 90^{\circ}-130^{\circ}')
 subplot(2,4,6)
 plot(Table5.T_K_1,Table5.Var1,'ro',Table5.T_K_1, T_K_1_Function_Five(Table5.T_K_1),'b-');
 
-
 xlabel('Temperature [k]')
 ylabel('Height [km]')
 
@@ -439,13 +437,12 @@ ylabel('Height [km]')
 
 
 %% Analysis
-% Conduct Level Flight at 53 km
+% Conduct Level Flight at alt_target km
 
 rho_50_km = fsolve(@(x) (50-Density_Function(x)),1); %kg/m^3
+rho_55_km = fsolve(@(x) (55-Density_Function(x)),1); %kg/m^3
 rho_60_km = fsolve(@(x) (60-Density_Function(x)),1); %kg/m^3
-rho_70_km = fsolve(@(x) (70-Density_Function(x)),1); %kg/m^3
-rho_80_km = fsolve(@(x) (80-Density_Function(x)),1); %kg/m^3
-rho_53_km = fsolve(@(x) (53-Density_Function(x)),1); %kg/m^3
+rho_53_km = fsolve(@(x) (alt_target-Density_Function(x)),1); %kg/m^3
 
 
 Diameters = 0:0.01:50; %m
@@ -454,9 +451,9 @@ Vol_Balloon = @(r) (4/3)*pi.*r.^3;   %m^3
 Mass_Total = @(rho) Vol_Balloon(Radi)*rho;
 
 figure(7)
-plot(Vol_Balloon(Radi), Mass_Total(rho_50_km),Vol_Balloon(Radi), Mass_Total(rho_60_km),Vol_Balloon(Radi), Mass_Total(rho_70_km),Vol_Balloon(Radi), Mass_Total(rho_80_km), Vol_Balloon(Radi), Mass_Total(rho_53_km), Vol_Balloon(3.4/2),21.5,'r*',Vol_Balloon(7.1/2),162.5,'r*',Vol_Balloon(11.1663/2),625,'b*',Vol_Balloon(11.1663/2),625,'b*','LineWidth',2);
+plot(Vol_Balloon(Radi), Mass_Total(rho_50_km), Vol_Balloon(Radi), Mass_Total(rho_55_km), Vol_Balloon(Radi), Mass_Total(rho_60_km), Vol_Balloon(Radi), Mass_Total(rho_53_km))
 title('Stable Altitudes - Mass and Volume','fontsize',18)
-legend('50 [km]','60 [km]','70 [km]','80 [km]','53 [km]','Vega 1 & 2','NASA Venus Reference (VDRM)','Cupid','Aeneas','location','Northwest')
+legend('50 [km]','55 [km]','60 [km]','Target_{alt}(53) [km]','Location','Northwest')
 xlabel('Volume of Balloon [m^3]','fontsize',18)
 ylabel('Mass of Balloon [kg]','fontsize',18)
 ylim([0 1250])
@@ -464,27 +461,57 @@ xlim([0 800])
 
 %% Temperature and Pressure
 
-% Pressure_B_35 = [fsolve(@(x) 53-P_Bar_FunctT_K_3_Function_Sixion_Two(x),0.7), fsolve(@(x) 53-P_Bar_1_Function_Two(x),0.7),fsolve(@(x) 53-P_Bar_1_Function_Two(x),0.7)];
-% Pressure_BW_35_55 = [fsolve(@(x) 53-P_Bar_Function_Three(x),0.7), fsolve(@(x) 53-P_Bar_Function_Three(x),0.7),fsolve(@(x) 53-P_Bar_Function_Three(x),0.7)];
-% Pressure_BW_50_70 = [fsolve(@(x) 53-P_Bar_Function_Four(x),0.7), fsolve(@(x) 53-P_Bar_Function_Four(x),0.7),fsolve(@(x) 53-P_Bar_Function_Four(x),0.7)];
-% Pressure_BW_70_80 = [fsolve(@(x) 53-P_Bar_Function_Five(x),0.7), fsolve(@(x) 53-P_Bar_Function_Five(x),0.7),fsolve(@(x) 53-P_Bar_Function_Five(x),0.7)];
-% Pressure_B_85 = [fsolve(@(x) 53-P_Bar_Function_Six(x),0.7), fsolve(@(x) 53-P_Bar_Function_Six(x),0.7),fsolve(@(x) 53-P_Bar_Function_Six(x),0.7)];
+Pressures_B_35 =        @(x) [fsolve(@(x) alt_target-P_Bar_Function_Eq_Two(x),0.01), fsolve(@(x) alt_target-P_Bar_1_Function_Eq_Two(x),0.01), fsolve(@(x) alt_target-P_Bar_2_Function_Eq_Two(x),0.01), fsolve(@(x) alt_target-P_Bar_3_Function_Eq_Two(x),0.01)];
+Pressures_BW_35_55 =    @(x) [fsolve(@(x) alt_target-P_Bar_Function_Eq_Three(x),0.01), fsolve(@(x) alt_target-P_Bar_1_Function_Eq_Three(x),0.01), fsolve(@(x) alt_target-P_Bar_2_Function_Eq_Three(x),0.01), fsolve(@(x) alt_target-P_Bar_3_Function_Eq_Three(x),0.01)];
+Pressures_BW_50_70 =    @(x) [fsolve(@(x) alt_target-P_Bar_Function_Eq_Four(x),0.01), fsolve(@(x) alt_target-P_Bar_1_Function_Eq_Four(x),0.01), fsolve(@(x) alt_target-P_Bar_2_Function_Eq_Four(x),0.01), fsolve(@(x) alt_target-P_Bar_3_Function_Eq_Four(x),0.01)];
+Pressures_BW_70_80 =    @(x) [fsolve(@(x) alt_target-P_Bar_Function_Eq_Five(x),0.01), fsolve(@(x) alt_target-P_Bar_1_Function_Eq_Five(x),0.01), fsolve(@(x) alt_target-P_Bar_2_Function_Eq_Five(x),0.01), fsolve(@(x) alt_target-P_Bar_3_Function_Eq_Five(x),0.01)];
+Pressures_A_85 =        @(x) [fsolve(@(x) alt_target-P_Bar_Function_Eq_Six(x),0.01), fsolve(@(x) alt_target-P_Bar_1_Function_Eq_Six(x),0.01), fsolve(@(x) alt_target-P_Bar_2_Function_Eq_Six(x),0.01), fsolve(@(x) alt_target-P_Bar_3_Function_Eq_Six(x),0.01)];
 
-% Temp_B_35 = [fsolve(@(x) 53-T_K_Function_Two(x),350), fsolve(@(x) 53-T_K_1_Function_Two(x),350),fsolve(@(x) 53-T_K_2_Function_Two(x),350)];
-% Temp_BW_35_55 = [fsolve(@(x) 53-T_K_Function_Three(x),350), fsolve(@(x) 53-T_K_1_Function_Three(x),350),fsolve(@(x) 53-T_K_2_Function_Three(x),350)];
-% Temp_BW_50_70 = [fsolve(@(x) 53-T_K_Function_Four(x),350), fsolve(@(x) 53-T_K_1_Function_Four(x),350),fsolve(@(x) 53-T_K_2_Function_Four(x),350)];
-% Temp_BW_70_80 = [fsolve(@(x) 53-T_K_Function_Five(x),350), fsolve(@(x) 53-T_K_1_Function_Five(x),350),fsolve(@(x) 53-T_K_2_Function_Five(x),350)];
-% Temp_B_85 = [fsolve(@(x) 53-T_K_Function_Six(x),350), fsolve(@(x) 53-T_K_1_Function_Six(x),350),fsolve(@(x) 53-T_K_2_Function_Six(x),350)];
+Temp_B_35 =        @(x) [fsolve(@(x) alt_target-T_K_Function_Two(x),0.01), fsolve(@(x) alt_target-T_K_1_Function_Two(x),0.01), fsolve(@(x) alt_target-T_K_2_Function_Two(x),0.01), fsolve(@(x) alt_target-T_K_3_Function_Two(x),0.01)];
+Temp_BW_35_55 =    @(x) [fsolve(@(x) alt_target-T_K_Function_Three(x),0.01), fsolve(@(x) alt_target-T_K_1_Function_Three(x),0.01), fsolve(@(x) alt_target-T_K_2_Function_Three(x),0.01), fsolve(@(x) alt_target-T_K_3_Function_Three(x),0.01)];
+Temp_BW_50_70 =    @(x) [fsolve(@(x) alt_target-T_K_Function_Four(x),0.01), fsolve(@(x) alt_target-T_K_1_Function_Four(x),0.01), fsolve(@(x) alt_target-T_K_2_Function_Four(x),0.01), fsolve(@(x) alt_target-T_K_3_Function_Four(x),0.01)];
+Temp_BW_70_80 =    @(x) [fsolve(@(x) alt_target-T_K_Function_Five(x),0.01), fsolve(@(x) alt_target-T_K_1_Function_Five(x),0.01), fsolve(@(x) alt_target-T_K_2_Function_Five(x),0.01), fsolve(@(x) alt_target-T_K_3_Function_Five(x),0.01)];
+Temp_A_85 =        @(x) [fsolve(@(x) alt_target-T_K_Function_Six(x),0.01), fsolve(@(x) alt_target-T_K_1_Function_Six(x),0.01), fsolve(@(x) alt_target-T_K_2_Function_Six(x),0.01), fsolve(@(x) alt_target-T_K_3_Function_Six(x),0.01)];
 
-% Pres_Solar_Long_20_90 = [Pressure_B_35(1),Pressure_BW_35_55(1),Pressure_BW_50_70(1),Pressure_BW_70_80(1),Pressure_B_85(1)];
-% Pres_Solar_Long_90_130 = [Pressure_B_35(2),Pressure_BW_35_55(2),Pressure_BW_50_70(2),Pressure_BW_70_80(2),Pressure_B_85(2)];
-% Pres_Solar_Long_200_270 = [Pressure_B_35(3),Pressure_BW_35_55(3),Pressure_BW_50_70(3),Pressure_BW_70_80(3),Pressure_B_85(3)];
-%Solar_Long_270_310 = [Pressure_B_35(3),Pressure_BW_35_55(3),Pressure_BW_50_70(3),Pressure_BW_70_80(3),Pressure_B_85(3)];
+R = 43.531;
 
-% Temp_Solar_Long_20_90 = [Temp_B_35(1),Temp_BW_35_55(1),Temp_BW_50_70(1),Temp_BW_70_80(1),Temp_B_85(1)];
-% Temp_Solar_Long_90_130 = [Temp_B_35(2),Temp_BW_35_55(2),Temp_BW_50_70(2),Temp_BW_70_80(2),Temp_B_85(2)];
-% Temp_Solar_Long_200_270 = [Temp_B_35(3),Temp_BW_35_55(3),Temp_BW_50_70(3),Temp_BW_70_80(3),Temp_B_85(3)];
-%Temp_Solar_Long_270_310 = [Temp_B_35(3),Temp_BW_35_55(3),Temp_BW_50_70(3),Temp_BW_70_80(3),Temp_B_85(3)];
+rho_B_35 =      @(x) 0.1*Pressures_B_35(x)./(R.*Temp_B_35(x));
+rho_BW_35_55 =  @(x) 0.1*Pressures_BW_35_55(x)./(R.*Temp_BW_35_55(x));
+rho_BW_50_70 =  @(x) 0.1*Pressures_BW_50_70(x)./(R.*Temp_BW_50_70(x));
+rho_BW_70_80 =  @(x) 0.1*Pressures_BW_70_80(x)./(R.*Temp_BW_70_80(x));
+rho_A_85 =      @(x) 0.1*Pressures_A_85(x)./(R.*Temp_A_85(x));
+
+rho_B_35_53 =      10000*rho_B_35(53);
+rho_BW_35_55_53 =  10000*rho_BW_35_55(53);
+rho_BW_50_70_53 =  10000*rho_BW_50_70(53);
+rho_BW_70_80_53 =  10000*rho_BW_70_80(53);
+rho_A_85_53 =      10000*rho_A_85(53);
+
+densities = [rho_B_35_53; rho_BW_35_55_53; rho_BW_50_70_53; rho_BW_70_80_53; rho_A_85_53;]
+
+figure(8)
+sgtitle('Fit Check - 1972 - Venus Atmosphere (Model 1) (most probable molecular mass and mean solar activity)')
+subplot(2,3,2)
+plot(Table7.Density*1000, Table7.Altitude,'bo',Density, Density_Function(Density),'r-')
+ylim([0 100])
+xlabel('$\displaystyle \textnormal{Density} [\frac{kg}{m^3}]$','Interpreter','latex')
+ylabel('Height [km]')
+
+subplot(2,3,4)
+plot(Table7.Density*1000, Table7.Altitude,'bo',Density, Density_Function(Density),'r-')
+xlabel('$\displaystyle \textnormal{Density} [\frac{kg}{m^3}]$','Interpreter','latex')
+ylabel('Height [km]')
+
+subplot(2,3,5)
+plot(Table7.Density*1000, Table7.Altitude,'bo',Density, Density_Function(Density),'r-')
+xlabel('$\displaystyle \textnormal{Density} [\frac{kg}{m^3}]$','Interpreter','latex')
+ylabel('Height [km]')
+
+subplot(2,3,6)
+plot(Table7.Density*1000, Table7.Altitude,'bo',Density, Density_Function(Density),'r-')
+xlabel('$\displaystyle \textnormal{Density} [\frac{kg}{m^3}]$','Interpreter','latex')
+ylabel('Height [km]')
+
 
 %% Sphere Plot
 % figure;
