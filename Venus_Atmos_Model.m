@@ -1,7 +1,7 @@
 %% Figures
 clear,clc
 alt_target = 53;
-%Givens using "Structure of the Venusian Atmosphere" Paper
+%Givens using "Zasova 2006 Structure of the Venusian Atmosphere" Paper
 Table2 = readtable('Venus_Atmos.xlsx', 'Sheet', 'Phi_Less_Than_35', 'Range','M3:U54');
 Table3 = readtable('Venus_Atmos.xlsx', 'Sheet', 'Phi_BW_35_55', 'Range','M3:U54');
 Table4 = readtable('Venus_Atmos.xlsx', 'Sheet', 'Phi_BW_50_70', 'Range','M3:U54');
@@ -467,27 +467,50 @@ Pressures_BW_50_70 =    @(x) [fsolve(@(x) alt_target-P_Bar_Function_Eq_Four(x),0
 Pressures_BW_70_80 =    @(x) [fsolve(@(x) alt_target-P_Bar_Function_Eq_Five(x),0.01), fsolve(@(x) alt_target-P_Bar_1_Function_Eq_Five(x),0.01), fsolve(@(x) alt_target-P_Bar_2_Function_Eq_Five(x),0.01), fsolve(@(x) alt_target-P_Bar_3_Function_Eq_Five(x),0.01)];
 Pressures_A_85 =        @(x) [fsolve(@(x) alt_target-P_Bar_Function_Eq_Six(x),0.01), fsolve(@(x) alt_target-P_Bar_1_Function_Eq_Six(x),0.01), fsolve(@(x) alt_target-P_Bar_2_Function_Eq_Six(x),0.01), fsolve(@(x) alt_target-P_Bar_3_Function_Eq_Six(x),0.01)];
 
+Pressures_B_35_53 =     Pressures_B_35(alt_target);       
+Pressures_BW_35_55_53 = Pressures_BW_35_55(alt_target); 
+Pressures_BW_50_70_53 = Pressures_BW_50_70(alt_target);
+Pressures_BW_70_80_53 = Pressures_BW_70_80(alt_target);  
+Pressures_A_85_53 =     Pressures_A_85(alt_target);
+
+Pressures_53 = [Pressures_B_35_53; Pressures_BW_35_55_53; Pressures_BW_50_70_53; Pressures_BW_70_80_53; Pressures_A_85_53;];
+
 Temp_B_35 =        @(x) [fsolve(@(x) alt_target-T_K_Function_Two(x),0.01), fsolve(@(x) alt_target-T_K_1_Function_Two(x),0.01), fsolve(@(x) alt_target-T_K_2_Function_Two(x),0.01), fsolve(@(x) alt_target-T_K_3_Function_Two(x),0.01)];
 Temp_BW_35_55 =    @(x) [fsolve(@(x) alt_target-T_K_Function_Three(x),0.01), fsolve(@(x) alt_target-T_K_1_Function_Three(x),0.01), fsolve(@(x) alt_target-T_K_2_Function_Three(x),0.01), fsolve(@(x) alt_target-T_K_3_Function_Three(x),0.01)];
 Temp_BW_50_70 =    @(x) [fsolve(@(x) alt_target-T_K_Function_Four(x),0.01), fsolve(@(x) alt_target-T_K_1_Function_Four(x),0.01), fsolve(@(x) alt_target-T_K_2_Function_Four(x),0.01), fsolve(@(x) alt_target-T_K_3_Function_Four(x),0.01)];
 Temp_BW_70_80 =    @(x) [fsolve(@(x) alt_target-T_K_Function_Five(x),0.01), fsolve(@(x) alt_target-T_K_1_Function_Five(x),0.01), fsolve(@(x) alt_target-T_K_2_Function_Five(x),0.01), fsolve(@(x) alt_target-T_K_3_Function_Five(x),0.01)];
 Temp_A_85 =        @(x) [fsolve(@(x) alt_target-T_K_Function_Six(x),0.01), fsolve(@(x) alt_target-T_K_1_Function_Six(x),0.01), fsolve(@(x) alt_target-T_K_2_Function_Six(x),0.01), fsolve(@(x) alt_target-T_K_3_Function_Six(x),0.01)];
 
+Temp_B_35_53 =  Temp_B_35(alt_target)
+Temp_BW_35_55_53 = Temp_BW_35_55(alt_target)
+Temp_BW_50_70_53 = Temp_BW_50_70(alt_target)
+Temp_BW_70_80_53 = Temp_BW_70_80(alt_target)
+Temp_A_85_53 = Temp_A_85(alt_target)
+
+Temps_53 = [Temp_B_35_53; Temp_BW_35_55_53; Temp_BW_50_70_53; Temp_BW_70_80_53; Temp_A_85_53;];
+
+
 R = 43.531;
+gas_constant = 8.314;
+R_specific = R/gas_constant;
+rho_B_35 =      @(x) (Pressures_B_35(x).*1000)./(R_specific .*Temp_B_35(x));
+rho_BW_35_55 =  @(x) (Pressures_BW_35_55(x).*1000)./(R_specific .*Temp_BW_35_55(x));
+rho_BW_50_70 =  @(x) (Pressures_BW_50_70(x).*1000)./(R_specific .*Temp_BW_50_70(x));
+rho_BW_70_80 =  @(x) (Pressures_BW_70_80(x).*1000)./(R_specific .*Temp_BW_70_80(x));
+rho_A_85 =      @(x) (Pressures_A_85(x).*1000)./(R_specific .*Temp_A_85(x));
 
-rho_B_35 =      @(x) 0.1*Pressures_B_35(x)./(R.*Temp_B_35(x));
-rho_BW_35_55 =  @(x) 0.1*Pressures_BW_35_55(x)./(R.*Temp_BW_35_55(x));
-rho_BW_50_70 =  @(x) 0.1*Pressures_BW_50_70(x)./(R.*Temp_BW_50_70(x));
-rho_BW_70_80 =  @(x) 0.1*Pressures_BW_70_80(x)./(R.*Temp_BW_70_80(x));
-rho_A_85 =      @(x) 0.1*Pressures_A_85(x)./(R.*Temp_A_85(x));
+rho_B_35_53 =      rho_B_35(53);
+rho_BW_35_55_53 =  rho_BW_35_55(53);
+rho_BW_50_70_53 =  rho_BW_50_70(53);
+rho_BW_70_80_53 =  rho_BW_70_80(53);
+rho_A_85_53 =      rho_A_85(53);
 
-rho_B_35_53 =      10000*rho_B_35(53);
-rho_BW_35_55_53 =  10000*rho_BW_35_55(53);
-rho_BW_50_70_53 =  10000*rho_BW_50_70(53);
-rho_BW_70_80_53 =  10000*rho_BW_70_80(53);
-rho_A_85_53 =      10000*rho_A_85(53);
+Densities_53 = [rho_B_35_53; rho_BW_35_55_53; rho_BW_50_70_53; rho_BW_70_80_53; rho_A_85_53;]
 
-densities = [rho_B_35_53; rho_BW_35_55_53; rho_BW_50_70_53; rho_BW_70_80_53; rho_A_85_53;]
+Temps = array2table(Temps_53, 'VariableNames', {'Ls 20-90','Ls 90-130','Ls 200-270','Ls 270-310 [K]'},'RowNames', {'phi<35','35<phi<55','50<phi<70','70<phi<80', 'phi>85'});
+Press = array2table(Pressures_53,'VariableNames', {'Ls 20-90','Ls 90-130','Ls 200-270','Ls 270-310 [Pa]'},'RowNames', {'phi<35','35<phi<55','50<phi<70','70<phi<80', 'phi>85'});
+Denss = array2table(Densities_53,'VariableNames', {'Ls 20-90','Ls 90-130','Ls 200-270','Ls 270-310 [kg/m^3]'},'RowNames', {'phi<35','35<phi<55','50<phi<70','70<phi<80', 'phi>85'});
+
 
 figure(8)
 sgtitle('Fit Check - 1972 - Venus Atmosphere (Model 1) (most probable molecular mass and mean solar activity)')
